@@ -1,0 +1,16 @@
+<html ng-app="components">
+<head>
+<script src="lib/angular.js"></script>
+<script src="custom/gauges.js"></script>
+</head>
+<body ng-controller="MyController">
+<div>
+	<gauge min="-50" max="50" value="pval" label="Petrol"></gauge>
+	<gauge min="-50" max="50" value="oval" label="Oil"></gauge>
+	<gauge min="-50" max="50" value="cval" label="Coolant"></gauge>
+</div>
+<div>
+	<button ng-click="randomize()">Randomize</button>
+</div>
+</body>
+</html>
