@@ -15,13 +15,10 @@ angular.module( 'components', [] ).directive( 'gauge', function () {
 } );
 
 function MyController( $scope ) {
-	$scope.pval = 10;
-	$scope.oval = 0;
-	$scope.cval = -10;
-
+	$scope.values = { p: 10, o: 0, c: -10 };
 	$scope.randomize = function() {
-		$scope.pval = ( Math.random() * 100 ) - 50;
-		$scope.oval = ( Math.random() * 100 ) - 50;
-		$scope.cval = ( Math.random() * 100 ) - 50;
+		$scope.values.p = ( Math.random() * 100 ) - 50;
+		$scope.values.o = ( Math.random() * 100 ) - 50;
+		$scope.values.c = ( Math.random() * 100 ) - 50;
 	}
 }

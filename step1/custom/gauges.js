@@ -4,7 +4,7 @@ var gauges = [];
 
 function createGauge(name, label, min, max) {
 	var config = {
-		size: 120,
+		size: 250,
 		label: label,
 		min: undefined != min ? min : 0,
 		max: undefined != max ? max : 100,

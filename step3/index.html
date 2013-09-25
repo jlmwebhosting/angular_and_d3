@@ -5,12 +5,12 @@
 </head>
 <body ng-controller="MyController">
 <div>
-	<gauge min="-50" max="50" value="pval" label="Petrol"></gauge>
-	<gauge min="-50" max="50" value="oval" label="Oil"></gauge>
-	<gauge min="-50" max="50" value="cval" label="Coolant"></gauge>
+	<gauge min="-50" max="50" value="values.p" label="Petrol"></gauge>
+	<gauge min="-50" max="50" value="values.o" label="Oil"></gauge>
+	<gauge min="-50" max="50" value="values.c" label="Coolant"></gauge>
 </div>
 <div>
-	<button ng-click="randomize()">Randomize</button>
+	<button ng-click="randomize()" style="font-size:x-large;">Randomize</button>
 </div>
 </body>
 </html>

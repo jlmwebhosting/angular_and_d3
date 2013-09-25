@@ -9,42 +9,26 @@ angular.module( 'components', [] ).directive( 'gauge', function () {
 			max: "=",
 			value: "="
 		},
-		compile: function( tElem ) {
-			return {
-				post: function( scope, iElement ) {
-					scope.element = iElement;
-				}
-			}
-		},
-		controller: function( $scope ) {
-			$scope.gauge = null;
+		link: function (scope, element, attrs, ngModelCtrl) {
+			var config = {
+				size: 250,
+				label: attrs.label,
+				min: undefined != scope.min ? scope.min : 0,
+				max: undefined != scope.max ? scope.max : 100,
+				minorTicks: 5
+			};
 
-			$scope.create = function() {
-				var config = {
-					size: 120,
-					label: $scope.label,
-					min: undefined != $scope.min ? $scope.min : 0,
-					max: undefined != $scope.max ? $scope.max : 100,
-					minorTicks: 5
-				};
+			var range = config.max - config.min;
+			config.yellowZones = [ { from: config.min + range*0.75, to: config.min + range*0.9 } ];
+			config.redZones = [ { from: config.min + range*0.9, to: config.max } ];
 
-				var range = config.max - config.min;
-				config.yellowZones = [ { from: config.min + range*0.75, to: config.min + range*0.9 } ];
-				config.redZones = [ { from: config.min + range*0.9, to: config.max } ];
+			scope.gauge = new Gauge( element[0], config );
+			scope.gauge.render();
+			scope.gauge.redraw( scope.value );
 
-				$scope.gauge = new Gauge( $scope.element[0], config );
-				$scope.gauge.render();
-				$scope.gauge.redraw( $scope.value );
-			}
-
-			$scope.$watch( 'value', function() {
-				if ( $scope.gauge )
-					$scope.gauge.redraw( $scope.value );
-			} );
-
-			$scope.$watch( 'element', function() {
-				if ( $scope.element && null == $scope.gauge )
-					$scope.create();
+			scope.$watch( 'value', function() {
+				if ( scope.gauge )
+					scope.gauge.redraw( scope.value );
 			} );
 		}
 	}
