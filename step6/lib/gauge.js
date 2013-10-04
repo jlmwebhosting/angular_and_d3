@@ -30,13 +30,45 @@ function Gauge(element, configuration)
 
 	this.render = function()
 	{
+		self.degrees = function( x1, y1, x2, y2 ) {
+			arctand = function( atv ) {
+				return Math.atan( atv ) * 57.2957795;
+			}
+			if ( x2 == x1 ) {
+				if ( y2 >= y1 )
+					return 90;
+				else if ( y2 < y1 )
+					return 270;
+			} else {
+				if ( x2 > x1 && y2 >= y1 )
+					return ( arctand ((y2 - y1) / (x2 - x1)))
+				else if ( x2 > x1 && y2 < y1 )
+					return 360 + (arctand ((y2 - y1) / (x2 - x1)))
+				else if ( x2 < x1 && y2 < y1 )
+					return 180 + (arctand ((y2 - y1) / (x2 - x1)))
+				else if ( x2 < x1 && y2 >= y1 )
+					return 180 + (arctand ((y2 - y1) / (x2 - x1)))
+			}
+		}
 		this.body = d3.select( this.element )
 							.append("svg:svg")
 							.attr("class", "gauge")
 							.attr("width", this.config.size)
 							.attr("height", this.config.size)
-							.on( 'click', function() {
-								self.config.click();
+							.on( 'click', function( event ) {
+								var angle = self.degrees(
+									d3.event.offsetX,
+									d3.event.offsetY,
+									self.config.size / 2,
+									self.config.size / 2 );
+
+								if ( angle >= 315 && angle < 360 ) angle -= 315;
+								else angle += 45;
+								if ( angle > 270 ) angle = 270;
+
+								var value = ( ( self.config.max - self.config.min ) * ( angle / 270.0 ) ) + self.config.min;
+
+								self.config.click( value );
 							} );
 
 		this.body.append("svg:circle")

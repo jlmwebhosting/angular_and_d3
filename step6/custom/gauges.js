@@ -17,9 +17,10 @@ angular.module( 'components', [] ).directive( 'gauge', function () {
 				min: undefined != scope.min ? scope.min : 0,
 				max: undefined != scope.max ? scope.max : 100,
 				minorTicks: 5,
-				click: function() {
-					scope.click();
+				click: function( value ) {
+					scope.value = value;
 					scope.$digest();
+					scope.click();
 				}
 			};
 
@@ -41,7 +42,7 @@ angular.module( 'components', [] ).directive( 'gauge', function () {
 
 function MyController( $scope ) {
 	$scope.values = { p: 10, o: 0, c: -10 };
-	$scope.randomize = function( val ) {
-		$scope.values[val] = ( Math.random() * 100 ) - 50;
+	$scope.set = function( val ) {
+		console.log( $scope.values );
 	}
 }
