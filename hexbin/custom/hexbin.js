@@ -44,7 +44,7 @@ angular.module( 'components', [] ).directive( 'hexbin', function () {
 				    .orient("left")
 				    .tickSize(6, -width);
 
-				$(element[0]).empty();
+				element.empty();
 
 				var svg = d3.select( element[0] ).append("svg")
 				    .attr("width", width + margin.left + margin.right)
