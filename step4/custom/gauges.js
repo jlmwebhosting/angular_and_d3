@@ -11,10 +11,10 @@ angular.module( 'components', [] ).directive( 'gauge', function () {
 			value: "="
 		},
 		link: function (scope, element, attrs, ngModelCtrl) {
-			$(element[0]).append( "<div>"+scope.value+"</div>" );
+			element.append( "<div>"+scope.value+"</div>" );
 			scope.$watch( 'value', function() {
-				$(element[0]).empty();
-				$(element[0]).append( "<div>"+scope.value+"</div>" );
+				element.empty();
+				element.append( "<div>"+scope.value+"</div>" );
 			});
 		}
 	}
